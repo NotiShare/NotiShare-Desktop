@@ -26,5 +26,15 @@ namespace Notishare.Views
             InitializeComponent();
             DataContext = new ClipboardViewMovel(id, deviceDb, userDb);
         }
+
+        private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var context = DataContext as ClipboardViewMovel;
+            var currentString = context?.ClipboardList[ClipboardCurrentList.SelectedIndex];
+            if (currentString != null)
+            {
+                System.Windows.Clipboard.SetText(currentString.ClipboardText);
+            }
+        }
     }
 }

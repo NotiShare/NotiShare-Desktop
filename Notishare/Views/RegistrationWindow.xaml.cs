@@ -18,23 +18,6 @@ namespace Notishare.Views
         }
 
 
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-
-            var windowClipboardManager = new ClipboardManager(this);
-            windowClipboardManager.ClipboardChanged += ClipboardChanged;
-        }
-
-        private void ClipboardChanged(object sender, EventArgs e)
-        {
-
-            if (System.Windows.Clipboard.ContainsText())
-            {
-                Debug.WriteLine(System.Windows.Clipboard.GetText());
-            }
-        }
-
         private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             var context = DataContext as RegistrationViewModel;

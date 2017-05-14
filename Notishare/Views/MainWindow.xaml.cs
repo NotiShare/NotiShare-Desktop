@@ -7,6 +7,7 @@ using Notishare.Clipboard;
 using Notishare.Helper;
 using Notishare.Model.DataTypes;
 using Notishare.Model.HttpWorker;
+using Notishare.ViewModel;
 
 
 namespace Notishare.Views
@@ -20,6 +21,8 @@ namespace Notishare.Views
         private ClipboardListControl clipboardListView;
         private NotificationListControl notificationListView;
         private string email;
+
+        private string lastClipboard = string.Empty;
 
         public MainWindow(string email)
         { 
@@ -61,7 +64,13 @@ namespace Notishare.Views
 
             if (System.Windows.Clipboard.ContainsText())
             {
-                Debug.WriteLine(System.Windows.Clipboard.GetText());
+                var currentClipboard = System.Windows.Clipboard.GetText();
+                if (!currentClipboard.Equals(lastClipboard))
+                {
+                    var clipboardContext = clipboardListView.DataContext as ClipboardViewMovel;
+                    clipboardContext?.SendClipboard(System.Windows.Clipboard.GetText());
+                    lastClipboard = currentClipboard;
+                }
             }
         }
     }

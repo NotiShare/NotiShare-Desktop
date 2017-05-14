@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Notishare.Model.DataTypes;
 using Notishare.ViewModel;
 
 namespace Notishare.Views
@@ -29,7 +30,9 @@ namespace Notishare.Views
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-             
+            var button = sender as Button;
+            var smth = button?.DataContext as NotificationList;
+            (DataContext as NotificationViewModel)?.NotificationList.Remove(smth);
         }
     }
 }

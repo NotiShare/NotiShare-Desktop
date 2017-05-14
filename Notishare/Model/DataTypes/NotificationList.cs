@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media.Imaging;
 
 namespace Notishare.Model.DataTypes
 {
     public class NotificationList
     {
 
-        public ImageSource NotificationIcon { get; set; }
+        public BitmapImage NotificationIcon { get; set; }
 
         public string Title { get; set; }
 
