@@ -68,6 +68,9 @@
     </ApplicationDefinition>
     <Compile Include="Clipboard\ClipboardManager.cs" />
     <Compile Include="Clipboard\InitWin32Clipboard.cs" />
+    <Compile Include="Commands\AsyncCommand.cs" />
+    <Compile Include="Helper\HashHelper.cs" />
+    <Compile Include="Helper\ValidationHelper.cs" />
     <Compile Include="Model\DataTypes\DeviceRegisterResult.cs" />
     <Compile Include="Model\DataTypes\LoginObject.cs" />
     <Compile Include="Model\DataTypes\NotificationObject.cs" />
@@ -75,6 +78,8 @@
     <Compile Include="Model\DataTypes\RegistrationObject.cs" />
     <Compile Include="Model\HttpWorker\HttpWorker.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\RegistrationViewModel.cs" />
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>

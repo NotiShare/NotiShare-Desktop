@@ -3,19 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Notishare.ViewModel"
         xmlns:local="clr-namespace:Notishare"
         mc:Ignorable="d"
         Title="RegistrationWindow" MaxHeight="600" MinHeight="600" MaxWidth="600" MinWidth="600" WindowStyle="ToolWindow">
+    <Window.DataContext>
+        <vm:RegistrationViewModel></vm:RegistrationViewModel>
+    </Window.DataContext>
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto">
         <TextBlock Text="Email" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 10"></TextBlock>
-        <TextBox VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 15"></TextBox>
+        <TextBox Text="{Binding EmailString, Mode=OneWayToSource}" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 15"></TextBox>
 
         <TextBlock Text="Password" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 20"></TextBlock>
-        <TextBox VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 25"></TextBox>
+        <PasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 25"></PasswordBox>
  
         <TextBlock Text="Repeat password" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 30"></TextBlock>
-        <TextBox VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 35"></TextBox>
+        <PasswordBox PasswordChanged="PasswordBox_OnPasswordRepeatChanged" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 35"></PasswordBox>
 
-        <Button Content="Register" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 40"></Button>
+        <Button Command="{Binding RegistrationCommand}"  IsEnabled ="{Binding CanRegister}" Content="Register" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 40"></Button>
+        <ProgressBar VerticalAlignment="Bottom" IsIndeterminate="{Binding IsWorking}" HorizontalAlignment="Stretch" Margin="5"></ProgressBar>
     </StackPanel>
 </Window>

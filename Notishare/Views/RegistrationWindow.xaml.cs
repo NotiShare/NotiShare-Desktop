@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using Notishare.Clipboard;
+using Notishare.ViewModel;
 
 namespace Notishare.Views
 {
@@ -20,17 +22,36 @@ namespace Notishare.Views
         {
             base.OnSourceInitialized(e);
 
-            // Initialize the clipboard now that we have a window soruce to use
             var windowClipboardManager = new ClipboardManager(this);
             windowClipboardManager.ClipboardChanged += ClipboardChanged;
         }
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
-            // Handle your clipboard update here, debug logging example:
+
             if (System.Windows.Clipboard.ContainsText())
             {
                 Debug.WriteLine(System.Windows.Clipboard.GetText());
+            }
+        }
+
+        private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var context = DataContext as RegistrationViewModel;
+            var password = sender as PasswordBox;
+            if (context != null)
+            {
+                context.PasswordString = password?.Password;
+            }
+        }
+
+        private void PasswordBox_OnPasswordRepeatChanged(object sender, RoutedEventArgs e)
+        {
+            var context = DataContext as RegistrationViewModel;
+            var password = sender as PasswordBox;
+            if (context != null)
+            {
+                context.PasswordRepeatString = password?.Password;
             }
         }
     }
