@@ -16,8 +16,9 @@
             <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-            <Button Content="Clipboard" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 10"></Button>
-            <Button Content="Notification" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 20"></Button>
+            <Button Click="ButtonBaseClipboard_OnClick" Content="Clipboard" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 10"></Button>
+            <Button Click="ButtonBaseNotification_OnClick" Content="Notification" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 20"></Button>
         </StackPanel>
+        <ContentControl x:Name="ContentControl" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>
     </Grid>
 </Window>

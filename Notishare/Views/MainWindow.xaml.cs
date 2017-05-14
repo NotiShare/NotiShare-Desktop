@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Notishare.Views;
 
 namespace Notishare
 {
@@ -20,9 +21,26 @@ namespace Notishare
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private ClipboardList clipboardListView;
+        private NotificationList notificationListView;
+
         public MainWindow()
         {
             InitializeComponent();
+            clipboardListView = new ClipboardList();
+            notificationListView = new NotificationList();
+            ContentControl.Content = clipboardListView;
+        }
+
+        private void ButtonBaseNotification_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = notificationListView;
+        }
+
+        private void ButtonBaseClipboard_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = clipboardListView;
         }
     }
 }
