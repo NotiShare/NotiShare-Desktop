@@ -11,7 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Notishare.Model.DataTypes;
+using Notishare.Model.HttpWorker;
 using Notishare.ViewModel;
+using NotiShare.Helper;
 
 namespace Notishare.Views
 {
@@ -36,10 +39,32 @@ namespace Notishare.Views
             }
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonBaseRegister_OnClick(object sender, RoutedEventArgs e)
         {
             var registerWindows = new RegistrationWindow();
             registerWindows.ShowDialog();
+        }
+
+        private async void ButtonBaseLogin_OnClick(object sender, RoutedEventArgs e)
+        {
+            var context = DataContext as LoginViewModel;
+            string result = string.Empty;
+            if (context != null)
+            {
+                var loginObject = new LoginObject
+                {
+                    Email = context.EmailString,
+                    PasswordHash = HashHelper.GetHashString(context.PasswordString)
+
+                };
+                result = await HttpWorker.Instance.Login(loginObject);
+            }
+            if (result.Equals("Welcome"))
+            {
+                var mainWindow = new MainWindow(context?.EmailString);
+                mainWindow.Show();
+                this.Close();
+            }
         }
     }   
 }

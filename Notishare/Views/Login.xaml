@@ -17,8 +17,8 @@
         <TextBlock Text="Password" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 20"></TextBlock>
         <PasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 25"></PasswordBox>
 
-        <Button IsEnabled="{Binding CanLogin}" Command="{Binding LoginCommand}" Content="Login" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 30"></Button>
-        <Button Content="Register" Click="ButtonBase_OnClick" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 40"></Button>
+        <Button IsEnabled="{Binding CanLogin}" Click="ButtonBaseLogin_OnClick" Content="Login" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 30"></Button>
+        <Button Content="Register" Click="ButtonBaseRegister_OnClick" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 40"></Button>
         <ProgressBar VerticalAlignment="Bottom" IsIndeterminate="{Binding IsWorking}" HorizontalAlignment="Stretch" Margin="5"></ProgressBar>
     </StackPanel>
 </Window>

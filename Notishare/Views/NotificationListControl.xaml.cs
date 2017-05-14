@@ -19,12 +19,12 @@ namespace Notishare.Views
     /// <summary>
     /// Interaction logic for NotificationList.xaml
     /// </summary>
-    public partial class NotificationList : UserControl
+    public partial class NotificationListControl : UserControl
     {
-        public NotificationList()
+        public NotificationListControl(string id, string userDb, string deviceDb)
         {
             InitializeComponent();
-            DataContext = new NotificationViewModel();
+            DataContext = new NotificationViewModel(id , deviceDb, userDb);
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

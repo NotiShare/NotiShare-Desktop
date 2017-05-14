@@ -23,7 +23,7 @@ namespace Notishare.Model.HttpWorker
         private HttpWorker()
         {
             client = new HttpClient();
-            client.Timeout = TimeSpan.FromSeconds(Timeout);
+            //client.Timeout = TimeSpan.FromSeconds(Timeout);
         }
 
 

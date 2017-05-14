@@ -19,12 +19,12 @@ namespace Notishare.Views
     /// <summary>
     /// Interaction logic for ClipboardList.xaml
     /// </summary>
-    public partial class ClipboardList : UserControl
+    public partial class ClipboardListControl : UserControl
     {
-        public ClipboardList()
+        public ClipboardListControl(string id, string userDb, string deviceDb)
         {
             InitializeComponent();
-            DataContext = new ClipboardViewMovel();
+            DataContext = new ClipboardViewMovel(id, deviceDb, userDb);
         }
     }
 }

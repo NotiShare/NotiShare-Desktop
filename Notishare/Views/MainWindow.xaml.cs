@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Notishare.Views;
+using Notishare.Clipboard;
+using Notishare.Helper;
+using Notishare.Model.DataTypes;
+using Notishare.Model.HttpWorker;
 
-namespace Notishare
+
+namespace Notishare.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,15 +17,32 @@ namespace Notishare
     public partial class MainWindow : Window
     {
 
-        private ClipboardList clipboardListView;
-        private NotificationList notificationListView;
+        private ClipboardListControl clipboardListView;
+        private NotificationListControl notificationListView;
+        private string email;
 
-        public MainWindow()
-        {
+        public MainWindow(string email)
+        { 
             InitializeComponent();
-            clipboardListView = new ClipboardList();
-            notificationListView = new NotificationList();
+            this.email = email;
+        }
+
+
+        protected override async void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            var registerDevice = new RegisterDeviceObject
+            {
+                DeviceId = IdHelper.GetDeviceId(),
+                Email = email,
+                DeviceType = "win"
+            };
+            var result = await HttpWorker.Instance.RegisterDevice(registerDevice);
+            clipboardListView = new ClipboardListControl(registerDevice.DeviceId, result.UserDbId, result.DeviceDbId);
+            notificationListView = new NotificationListControl(registerDevice.DeviceId, result.UserDbId, result.DeviceDbId);
             ContentControl.Content = clipboardListView;
+            var windowClipboardManager = new ClipboardManager(this);
+            windowClipboardManager.ClipboardChanged += ClipboardChanged;
         }
 
         private void ButtonBaseNotification_OnClick(object sender, RoutedEventArgs e)
@@ -41,6 +53,16 @@ namespace Notishare
         private void ButtonBaseClipboard_OnClick(object sender, RoutedEventArgs e)
         {
             ContentControl.Content = clipboardListView;
+        }
+
+
+        private void ClipboardChanged(object sender, EventArgs e)
+        {
+
+            if (System.Windows.Clipboard.ContainsText())
+            {
+                Debug.WriteLine(System.Windows.Clipboard.GetText());
+            }
         }
     }
 }
