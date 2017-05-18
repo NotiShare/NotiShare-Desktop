@@ -12,11 +12,11 @@
             <DataTemplate>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" >
                     <Image Source="{Binding NotificationIcon}" Stretch="Fill" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Image>
-                    <Grid HorizontalAlignment="Stretch" Width="auto">
+                    <Grid HorizontalAlignment="Stretch">
                         <TextBlock Margin="5"  TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Right"></TextBlock>
                         <TextBlock TextWrapping="Wrap" Text="{Binding Text}" TextAlignment="Left" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5"></TextBlock>
                     </Grid>
-                    <Button Click="ButtonBase_OnClick" Margin="100, 5, 0, 0"  VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Delete"></Button>
+                    <Button Click="ButtonBase_OnClick" Margin="100, 5, 0, 0"  VerticalAlignment="Top" HorizontalAlignment="Right" Content="Delete"></Button>
                 </StackPanel>
             </DataTemplate>
         </ListView.ItemTemplate>

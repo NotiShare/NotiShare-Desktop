@@ -30,10 +30,17 @@ namespace Notishare.Views
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var context = DataContext as ClipboardViewMovel;
-            var currentString = context?.ClipboardList[ClipboardCurrentList.SelectedIndex];
-            if (currentString != null)
+            try
             {
-                System.Windows.Clipboard.SetText(currentString.ClipboardText);
+                var currentString = context?.ClipboardList[ClipboardCurrentList.SelectedIndex];
+                if (currentString != null)
+                {
+                    System.Windows.Clipboard.SetText(currentString.ClipboardText);
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                
             }
         }
     }

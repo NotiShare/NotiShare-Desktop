@@ -10,7 +10,7 @@ namespace Notishare.Model.HttpWorker
     internal class WebSocket
     {
 
-        private const string DefaultUrl = "ws://192.168.100.6";
+        private const string DefaultUrl = "ws://172.20.10.3";
 
         private string url;
 
