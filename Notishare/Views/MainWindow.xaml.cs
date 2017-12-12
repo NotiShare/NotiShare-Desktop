@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using Notishare.Clipboard;
 using Notishare.Helper;
-using Notishare.Model.DataTypes;
-using Notishare.Model.HttpWorker;
 using Notishare.ViewModel;
+using NotiShareModel.DataTypes;
+using NotiShareModel.HttpWorker;
 
 
 namespace Notishare.Views

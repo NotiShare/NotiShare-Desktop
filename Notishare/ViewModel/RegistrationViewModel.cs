@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Notishare.Commands;
-using Notishare.Model.DataTypes;
-using Notishare.Model.HttpWorker;
-using NotiShare.Helper;
+using NotiShareModel.DataTypes;
+using NotiShareModel.CrossHelper;
+using NotiShareModel.HttpWorker;
 
 namespace Notishare.ViewModel
 {
@@ -94,7 +94,7 @@ namespace Notishare.ViewModel
 
         private bool IsCanEnableButton()
         {
-            if (ValidationHelper.CheckEmail(EmailString) && ValidationHelper.ValidatePasswordLenght(PasswordString) && ValidationHelper.ValidatePasswords(PasswordString, PasswordRepeatString))
+            if (CrossValidationHelper.CheckEmail(EmailString) && CrossValidationHelper.ValidatePasswordLenght(PasswordString) && CrossValidationHelper.ValidatePasswords(PasswordString, PasswordRepeatString))
             {
                 return true;
             }

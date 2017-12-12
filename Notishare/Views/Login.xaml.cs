@@ -11,10 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Notishare.Model.DataTypes;
-using Notishare.Model.HttpWorker;
+using NotiShareModel.DataTypes;
 using Notishare.ViewModel;
-using NotiShare.Helper;
+using NotiShareModel.CrossHelper;
+using NotiShareModel.HttpWorker;
 
 namespace Notishare.Views
 {

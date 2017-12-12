@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Newtonsoft.Json;
-using Notishare.Model.DataTypes;
-using Notishare.Model.HttpWorker;
+using Notishare.Ws;
+using NotiShareModel.DataTypes;
 
 namespace Notishare.ViewModel
 {

@@ -11,8 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Newtonsoft.Json;
-using Notishare.Model.DataTypes;
-using Notishare.Model.HttpWorker;
+using NotiShareModel.DataTypes;
+using Notishare.Ws;
 
 namespace Notishare.ViewModel
 {

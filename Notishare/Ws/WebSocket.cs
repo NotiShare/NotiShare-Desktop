@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SharpSocket = WebSocketSharp;
 
-namespace Notishare.Model.HttpWorker
+namespace Notishare.Ws
 {
     internal class WebSocket
     {
 
-        private const string DefaultUrl = "ws://172.20.10.3";
+        private const string DefaultUrl = "ws://192.168.43.89";
 
         private string url;
 
@@ -32,7 +28,7 @@ namespace Notishare.Model.HttpWorker
         {
             this.url = url;
             this.port = port;
-            this.id = id;
+            //this.id = id;
             this.deviceDbId = deviceDbId;
             this.userDbId = userDbId;
             this.deviceType = deviceType;
