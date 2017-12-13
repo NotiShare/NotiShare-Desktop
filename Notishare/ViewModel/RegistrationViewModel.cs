@@ -26,6 +26,45 @@ namespace Notishare.ViewModel
             });
         }
 
+
+        private string login;
+
+        public string LoginString
+        {
+            get { return login; }
+            set
+            {
+                login = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string user;
+
+        public string NameString
+        {
+            get { return user; }
+            set
+            {
+                user = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string surname;
+
+        public string SurnameString
+        {
+            get { return surname; }
+            set
+            {
+                surname = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private string emailString;
 
         public string EmailString
@@ -106,6 +145,9 @@ namespace Notishare.ViewModel
         {
             var registerObject = new RegistrationObject
             {
+                Name = NameString,
+                Surname = SurnameString,
+                UserName = LoginString,
                 Email = EmailString,
                 PasswordHash = HashHelper.GetHashString(PasswordString)
             };

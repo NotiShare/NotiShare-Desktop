@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Notishare.LocalModel;
 using NotiShareModel.DataTypes;
 using Notishare.ViewModel;
 
@@ -22,16 +23,16 @@ namespace Notishare.Views
     /// </summary>
     public partial class NotificationListControl : UserControl
     {
-        public NotificationListControl(string id, string userDb, string deviceDb)
+        public NotificationListControl(int userDb, int userDeviceDb)
         {
             InitializeComponent();
-            DataContext = new NotificationViewModel(id , deviceDb, userDb);
+            DataContext = new NotificationViewModel(userDeviceDb, userDb);
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            var smth = button?.DataContext as NotificationList;
+            var smth = button?.DataContext as LocalNotification;
             (DataContext as NotificationViewModel)?.NotificationList.Remove(smth);
         }
     }

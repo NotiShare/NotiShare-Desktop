@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Newtonsoft.Json;
 using Notishare.Clipboard;
 using Notishare.Helper;
 using Notishare.ViewModel;
@@ -20,14 +21,16 @@ namespace Notishare.Views
 
         private ClipboardListControl clipboardListView;
         private NotificationListControl notificationListView;
-        private string email;
+        private int userId;
 
+        private ClipboardManager windowClipboardManager;
         private string lastClipboard = string.Empty;
 
-        public MainWindow(string email)
+        public MainWindow(int userId)
         { 
             InitializeComponent();
-            this.email = email;
+            this.userId = userId;
+            
         }
 
 
@@ -37,15 +40,16 @@ namespace Notishare.Views
             var registerDevice = new RegisterDeviceObject
             {
                 DeviceId = IdHelper.GetDeviceId(),
-                Email = email,
-                DeviceType = "win"
+                UserId = userId,
+                DeviceType = 2,
+                DeviceName = Environment.MachineName
             };
             var result = await HttpWorker.Instance.RegisterDevice(registerDevice);
-            clipboardListView = new ClipboardListControl(registerDevice.DeviceId, result.UserDbId, result.DeviceDbId);
-            notificationListView = new NotificationListControl(registerDevice.DeviceId, result.UserDbId, result.DeviceDbId);
+            clipboardListView = new ClipboardListControl(userId, result.UserDeviceDbId, SubscribeEvent, UnsubcribeEvent);
+            notificationListView = new NotificationListControl(userId, result.UserDeviceDbId);
             ContentControl.Content = clipboardListView;
-            var windowClipboardManager = new ClipboardManager(this);
-            windowClipboardManager.ClipboardChanged += ClipboardChanged;
+            windowClipboardManager = new ClipboardManager(this);
+            SubscribeEvent();
         }
 
         private void ButtonBaseNotification_OnClick(object sender, RoutedEventArgs e)
@@ -59,18 +63,34 @@ namespace Notishare.Views
         }
 
 
+
+        private void SubscribeEvent()
+        {
+            windowClipboardManager.ClipboardChanged += ClipboardChanged;
+        }
+
+
+        private void UnsubcribeEvent()
+        {
+            windowClipboardManager.ClipboardChanged -= ClipboardChanged;
+        }
+
         private void ClipboardChanged(object sender, EventArgs e)
         {
 
-            if (System.Windows.Clipboard.ContainsText())
+            
+            var currentClipboard = System.Windows.Clipboard.GetText();
+            if (!currentClipboard.Equals(lastClipboard))
             {
-                var currentClipboard = System.Windows.Clipboard.GetText();
-                if (!currentClipboard.Equals(lastClipboard))
+                var clipboardContext = clipboardListView.DataContext as ClipboardViewMovel;
+                var clipboardData = new ClipboardData
                 {
-                    var clipboardContext = clipboardListView.DataContext as ClipboardViewMovel;
-                    clipboardContext?.SendClipboard(System.Windows.Clipboard.GetText());
-                    lastClipboard = currentClipboard;
-                }
+                    ClipboardStringData = System.Windows.Clipboard.GetText(),
+                    DataType = 1,
+                    DatetimeCreation = DateTime.Now
+                };
+                clipboardContext?.SendClipboard(JsonConvert.SerializeObject(clipboardData));
+                lastClipboard = currentClipboard;
             }
         }
     }

@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using NotiShareModel.DataTypes;
 using Notishare.ViewModel;
 using NotiShareModel.CrossHelper;
@@ -48,23 +37,24 @@ namespace Notishare.Views
         private async void ButtonBaseLogin_OnClick(object sender, RoutedEventArgs e)
         {
             var context = DataContext as LoginViewModel;
-            string result = string.Empty;
+            LoginResult result = null;
             if (context != null)
             {
                 var loginObject = new LoginObject
                 {
-                    Email = context.EmailString,
+                    UserName = context.UserString,
                     PasswordHash = HashHelper.GetHashString(context.PasswordString)
 
                 };
                 result = await HttpWorker.Instance.Login(loginObject);
+                if (result.Message.Equals("Welcome"))
+                {
+                    var mainWindow = new MainWindow(result.UserId);
+                    mainWindow.Show();
+                    this.Close();
+                }
             }
-            if (result.Equals("Welcome"))
-            {
-                var mainWindow = new MainWindow(context?.EmailString);
-                mainWindow.Show();
-                this.Close();
-            }
+            
         }
     }   
 }

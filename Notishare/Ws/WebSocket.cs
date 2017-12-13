@@ -6,30 +6,27 @@ namespace Notishare.Ws
     internal class WebSocket
     {
 
-        private const string DefaultUrl = "ws://192.168.43.89";
+        private const string DefaultUrl = "ws://192.168.100.5";
 
         private string url;
 
         private int port;
 
-        private string id;
+        private int userDeviceDbId;
 
-        private string deviceDbId;
+        private int userDbId;
 
-        private string userDbId;
-
-        private string deviceType;
+        private int deviceType;
 
         private SharpSocket.WebSocket socket;
 
         private Action<string> sendAction;
 
-        public WebSocket(string url, int port, string id, string deviceDbId, string userDbId, string deviceType, Action<string> sendAction)
+        public WebSocket(string url, int port,  int userDeviceDbId, int userDbId, int deviceType, Action<string> sendAction)
         {
             this.url = url;
             this.port = port;
-            //this.id = id;
-            this.deviceDbId = deviceDbId;
+            this.userDeviceDbId = userDeviceDbId;
             this.userDbId = userDbId;
             this.deviceType = deviceType;
             this.sendAction = sendAction;
@@ -40,7 +37,7 @@ namespace Notishare.Ws
         public void Init()
         {
 
-            socket = new SharpSocket.WebSocket($"{DefaultUrl}:{port}/{url}?id={id}&deviceId={deviceDbId}&userId={userDbId}&type={deviceType}");
+            socket = new SharpSocket.WebSocket($"{DefaultUrl}:{port}/{url}?user_device_id={userDeviceDbId}&user_id={userDbId}&type={deviceType}");
             socket.OnOpen += SocketOnOnOpen;
             socket.OnMessage += SocketOnOnMessage;
             socket.OnError += SocketOnOnError;

@@ -21,14 +21,24 @@ namespace Notishare.Views
     /// </summary>
     public partial class ClipboardListControl : UserControl
     {
-        public ClipboardListControl(string id, string userDb, string deviceDb)
+
+        private Action subcribeEvent;
+
+        private Action unsubcribeEvent;
+
+
+        public ClipboardListControl(int userDb, int userDeviceDb, Action subcribeEvent, Action unsubcribeEvent)
         {
             InitializeComponent();
-            DataContext = new ClipboardViewMovel(id, deviceDb, userDb);
+            DataContext = new ClipboardViewMovel(userDeviceDb, userDb);
+            this.subcribeEvent = subcribeEvent;
+            this.unsubcribeEvent = unsubcribeEvent;
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+
+            unsubcribeEvent.Invoke();
             var context = DataContext as ClipboardViewMovel;
             try
             {
@@ -42,6 +52,8 @@ namespace Notishare.Views
             {
                 
             }
+
+            subcribeEvent.Invoke();
         }
     }
 }

@@ -27,16 +27,15 @@ namespace Notishare.ViewModel
             }); 
         }
 
-        private string emailString;
+        private string userString;
 
-        public string EmailString
+        public string UserString
         {
-            get { return emailString; }
+            get { return userString; }
             set
             {
-                emailString = value;
+                userString = value;
                 OnPropertyChanged();
-                CanLogin = IsCanEnableButton();
             }
         }
 
@@ -47,8 +46,8 @@ namespace Notishare.ViewModel
             set
             {           
                 passwordString = value;
-                OnPropertyChanged();
                 CanLogin = IsCanEnableButton();
+                OnPropertyChanged();
             }
         }
 
@@ -82,12 +81,12 @@ namespace Notishare.ViewModel
         public ICommand LoginCommand { get; set; }
 
 
-        private async Task<string> Login()
+        private async Task<LoginResult> Login()
         {
             
             var loginObject = new LoginObject
             {
-                Email = EmailString,
+                UserName = UserString,
                 PasswordHash = HashHelper.GetHashString(PasswordString)
 
             };
@@ -98,7 +97,7 @@ namespace Notishare.ViewModel
 
         private bool IsCanEnableButton()
         {
-            if (CrossValidationHelper.CheckEmail(EmailString) && CrossValidationHelper.ValidatePasswordLenght(PasswordString))
+            if  (CrossValidationHelper.ValidatePasswordLenght(PasswordString))
             {
                 return true;
             }

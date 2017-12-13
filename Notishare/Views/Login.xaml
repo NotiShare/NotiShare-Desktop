@@ -11,11 +11,11 @@
         <vm:LoginViewModel></vm:LoginViewModel>
     </Window.DataContext>
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto">
-        <TextBlock Text="Email" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 10"></TextBlock>
-        <TextBox Text="{Binding EmailString, Mode=OneWayToSource}" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 15"></TextBox>
+        <TextBlock Text="Login" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 10"></TextBlock>
+        <TextBox Text="{Binding UserString, Mode=OneWayToSource}" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 15"></TextBox>
 
-        <TextBlock Text="Password" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 20"></TextBlock>
-        <PasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 25"></PasswordBox>
+        <TextBlock Text="Password" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 10"></TextBlock>
+        <PasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="20, 15"></PasswordBox>
 
         <Button IsEnabled="{Binding CanLogin}" Click="ButtonBaseLogin_OnClick" Content="Login" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 30"></Button>
         <Button Content="Register" Click="ButtonBaseRegister_OnClick" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20, 40"></Button>

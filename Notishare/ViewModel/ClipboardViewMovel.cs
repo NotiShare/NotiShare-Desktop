@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Newtonsoft.Json;
+using Notishare.LocalModel;
 using Notishare.Ws;
 using NotiShareModel.DataTypes;
 
@@ -16,26 +17,25 @@ namespace Notishare.ViewModel
     {
         private WebSocket socket;
 
-        private string id;
 
-        private string deviceDbId;
+        private int userDeviceDbId;
 
-        private string userDbId;
+        private int userDbId;
 
-        public ClipboardViewMovel(string id, string deviceDbId, string userDbId)
+        public ClipboardViewMovel(int userDeviceDbId, int userDbId)
         {
-            this.id = id;
-            this.deviceDbId = deviceDbId;
+  
+            this.userDeviceDbId = userDeviceDbId;
             this.userDbId = userDbId;
-            ClipboardList = new ObservableCollection<ClipboardList>();
-            socket = new WebSocket("clipboardSocket", 3032, id, deviceDbId, userDbId, "win", PutClipboardToList); 
+            ClipboardList = new ObservableCollection<LocalClipboard>();
+            socket = new WebSocket("clipboardSocket", 3032, userDeviceDbId, this.userDbId, 2, PutClipboardToList); 
             socket.Init();
         }
 
 
-        private ObservableCollection<ClipboardList> list;
+        private ObservableCollection<LocalClipboard> list;
 
-        public ObservableCollection<ClipboardList> ClipboardList
+        public ObservableCollection<LocalClipboard> ClipboardList
         {
             get { return list; }
             set
@@ -48,7 +48,7 @@ namespace Notishare.ViewModel
 
         private void PutClipboardToList(string message)
         {
-            var clipboard = new ClipboardList
+            var clipboard = new LocalClipboard
             {
                 ClipboardText = message
             };

@@ -73,6 +73,8 @@
     <Compile Include="Clipboard\InitWin32Clipboard.cs" />
     <Compile Include="Commands\AsyncCommand.cs" />
     <Compile Include="Helper\IdHelper.cs" />
+    <Compile Include="LocalModel\LocalClipboard.cs" />
+    <Compile Include="LocalModel\LocalNotification.cs" />
     <Compile Include="Ws\WebSocket.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\ClipboardViewMovel.cs" />

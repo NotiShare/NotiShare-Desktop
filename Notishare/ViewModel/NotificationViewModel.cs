@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Newtonsoft.Json;
+using Notishare.LocalModel;
 using NotiShareModel.DataTypes;
 using Notishare.Ws;
 
@@ -21,29 +22,26 @@ namespace Notishare.ViewModel
 
         private WebSocket socket;
 
-        private string id;
+        private int userDeviceDbId;
 
-        private string deviceDbId;
-
-        private string userDbId;
+        private int userDbId;
 
 
 
-        public NotificationViewModel(string id, string deviceDbId, string userDbId)
+        public NotificationViewModel(int userDeviceDbId, int userDbId)
         {
-            this.id = id;
-            this.deviceDbId = deviceDbId;
+            this.userDeviceDbId = userDeviceDbId;
             this.userDbId = userDbId;
-            socket = new WebSocket("notificationSocket", 3031, id, deviceDbId, userDbId, "win", PutNotificationToList);
+            socket = new WebSocket("notificationSocket", 3031, userDeviceDbId, userDbId, 2, PutNotificationToList);
             socket.Init();
-            NotificationList = new ObservableCollection<NotificationList>();
+            NotificationList = new ObservableCollection<LocalNotification>();
         }
 
 
 
-        private ObservableCollection<NotificationList> list;
+        private ObservableCollection<LocalNotification> list;
 
-        public ObservableCollection<NotificationList> NotificationList
+        public ObservableCollection<LocalNotification> NotificationList
         {
             get { return list; }
             set
@@ -57,7 +55,7 @@ namespace Notishare.ViewModel
         private void PutNotificationToList(string message)
         {
             var resultObject = JsonConvert.DeserializeObject<NotificationObject>(message);
-            var notification = new NotificationList
+            var notification = new LocalNotification
             {
                 NotificationIcon = Base64StringToBitmap(resultObject.ImageBase64),
                 Text = resultObject.NotificationText,
