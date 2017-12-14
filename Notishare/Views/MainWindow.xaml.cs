@@ -22,9 +22,9 @@ namespace Notishare.Views
         private ClipboardListControl clipboardListView;
         private NotificationListControl notificationListView;
         private int userId;
-
         private ClipboardManager windowClipboardManager;
         private string lastClipboard = string.Empty;
+        private bool isSubscribed = true;
 
         public MainWindow(int userId)
         { 
@@ -73,25 +73,32 @@ namespace Notishare.Views
         private void UnsubcribeEvent()
         {
             windowClipboardManager.ClipboardChanged -= ClipboardChanged;
+            isSubscribed = false;
         }
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
-
-            
-            var currentClipboard = System.Windows.Clipboard.GetText();
-            if (!currentClipboard.Equals(lastClipboard))
+            if (isSubscribed)
             {
-                var clipboardContext = clipboardListView.DataContext as ClipboardViewMovel;
-                var clipboardData = new ClipboardData
+                var currentClipboard = System.Windows.Clipboard.GetText();
+                if (!currentClipboard.Equals(lastClipboard))
                 {
-                    ClipboardStringData = System.Windows.Clipboard.GetText(),
-                    DataType = 1,
-                    DatetimeCreation = DateTime.Now
-                };
-                clipboardContext?.SendClipboard(JsonConvert.SerializeObject(clipboardData));
-                lastClipboard = currentClipboard;
+                    var clipboardContext = clipboardListView.DataContext as ClipboardViewMovel;
+                    var clipboardData = new ClipboardData
+                    {
+                        ClipboardStringData = System.Windows.Clipboard.GetText(),
+                        DataType = 1,
+                        DatetimeCreation = DateTime.Now
+                    };
+                    clipboardContext?.SendClipboard(JsonConvert.SerializeObject(clipboardData));
+                    lastClipboard = currentClipboard;
+                }
             }
+            else
+            {
+                SubscribeEvent();
+            }
+
         }
     }
 }

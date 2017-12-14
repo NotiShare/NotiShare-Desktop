@@ -1,12 +1,13 @@
 ﻿using System;
 using SharpSocket = WebSocketSharp;
+using NotiShareModel.CrossHelper;
 
 namespace Notishare.Ws
 {
     internal class WebSocket
     {
 
-        private const string DefaultUrl = "ws://192.168.100.5";
+        private readonly string DefaultUrl = CrossResourceHelper.GetWsAdress();
 
         private string url;
 

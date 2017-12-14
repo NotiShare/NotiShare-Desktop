@@ -48,9 +48,10 @@ namespace Notishare.ViewModel
 
         private void PutClipboardToList(string message)
         {
+            var returnObject = JsonConvert.DeserializeObject<ClipboardData>(message);
             var clipboard = new LocalClipboard
             {
-                ClipboardText = message
+                ClipboardText = returnObject.ClipboardStringData
             };
             Application.Current.Dispatcher.Invoke(() =>
             {
